@@ -62,7 +62,7 @@ public class Exam {
         question.setExam(this);
     }
 
-    public void remiveQuestion(Question question) {
+    public void removeQuestion(Question question) {
         this.questions.remove(question);
         question.setExam(null);
     }
