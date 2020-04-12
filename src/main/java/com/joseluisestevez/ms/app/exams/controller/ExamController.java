@@ -16,7 +16,7 @@ import com.joseluisestevez.ms.commons.controllers.CommonController;
 @RestController
 public class ExamController extends CommonController<Exam, ExamService> {
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<?> edit(@RequestBody Exam exam, @PathVariable Long id) {
 
         Optional<Exam> o = service.findById(id);
