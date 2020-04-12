@@ -40,7 +40,7 @@ public class ExamController extends CommonController<Exam, ExamService> {
     }
 
     @GetMapping("/subjects")
-    public ResponseEntity<?> listSubjects(@PathVariable String name) {
+    public ResponseEntity<?> listSubjects() {
         return ResponseEntity.ok(service.findAllSubjects());
     }
 }
