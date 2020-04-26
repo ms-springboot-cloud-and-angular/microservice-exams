@@ -38,6 +38,8 @@ public class ExamController extends CommonController<Exam, ExamService> {
         }
         Exam currentExam = o.get();
         currentExam.setName(exam.getName());
+        currentExam.setParentSubject(exam.getParentSubject());
+        currentExam.setChildrenSubject(exam.getChildrenSubject());
 
         currentExam.getQuestions().stream().filter(cq -> !exam.getQuestions().contains(cq)).forEach(currentExam::removeQuestion);
 
