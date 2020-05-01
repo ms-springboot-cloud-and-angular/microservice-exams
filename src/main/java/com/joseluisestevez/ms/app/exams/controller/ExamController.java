@@ -2,6 +2,7 @@ package com.joseluisestevez.ms.app.exams.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.joseluisestevez.ms.app.exams.services.ExamService;
 import com.joseluisestevez.ms.commons.controllers.CommonController;
 import com.joseluisestevez.ms.commons.exams.models.entity.Exam;
+import com.joseluisestevez.ms.commons.exams.models.entity.Question;
 
 @RestController
 public class ExamController extends CommonController<Exam, ExamService> {
@@ -41,7 +43,13 @@ public class ExamController extends CommonController<Exam, ExamService> {
         currentExam.setParentSubject(exam.getParentSubject());
         currentExam.setChildrenSubject(exam.getChildrenSubject());
 
-        currentExam.getQuestions().stream().filter(cq -> !exam.getQuestions().contains(cq)).forEach(currentExam::removeQuestion);
+        // Option A: Using CopyOnWriteArrayList
+        // CopyOnWriteArrayList<Question> questions = new CopyOnWriteArrayList<>(currentExam.getQuestions());
+        // questions.stream().filter(cq -> !exam.getQuestions().contains(cq)).forEach(currentExam::removeQuestion);
+
+        // Option B:
+        List<Question> removed = currentExam.getQuestions().stream().filter(cq -> !exam.getQuestions().contains(cq)).collect(Collectors.toList());
+        removed.forEach(currentExam::removeQuestion);
 
         currentExam.setQuestions(exam.getQuestions());
 
